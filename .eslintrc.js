@@ -10,4 +10,24 @@ module.exports = {
         "prettier/@typescript-eslint",
         "plugin:prettier/recommended",
     ],
+    settings: {
+        "import/resolver": {
+            node: {
+                extensions: [".ts"],
+                paths: ["./src"],
+            },
+        },
+    },
+    rules: {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                js: "never",
+                jsx: "never",
+                ts: "never",
+                tsx: "never",
+            },
+        ],
+    },
 };
