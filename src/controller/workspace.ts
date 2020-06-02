@@ -1,9 +1,22 @@
 import { Request, Response } from "express";
-import Workspace from "../model/workspace";
+
+import WorkspaceResource from "../resource/WorkspaceResource";
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const response = await Workspace.findAll({});
+        const response = await WorkspaceResource.findMany();
+
+        return res.json(response);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
+};
+
+export const show = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    try {
+        const response = await WorkspaceResource.findById(id);
 
         return res.json(response);
     } catch (error) {
@@ -12,33 +25,35 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {
-    const response = await Workspace.create(req.body);
+    try {
+        const response = await WorkspaceResource.create(req.body);
 
-    return res.json(response);
+        return res.json(response);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 };
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
 
-    await Workspace.update(req.body, {
-        where: {
-            id,
-        },
-    });
+    try {
+        const response = await WorkspaceResource.updateById(id, req.body);
 
-    const response = await Workspace.findByPk(id);
-
-    return res.json(response);
+        return res.json(response);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 };
 
 export const destroy = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
 
-    await Workspace.destroy({
-        where: {
-            id,
-        },
-    });
+    try {
+        await WorkspaceResource.destroyById(id);
 
-    return res.sendStatus(200);
+        return res.sendStatus(200);
+    } catch (error) {
+        return res.status(500).json(error);
+    }
 };

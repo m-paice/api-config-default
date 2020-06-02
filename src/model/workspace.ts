@@ -1,14 +1,14 @@
 import { DataTypes, Model, BuildOptions } from "sequelize";
 import sequelize from ".";
 
-interface Workspace extends Model {
+export interface Workspace extends Model {
     readonly id: string;
     name: string;
     createdAt: Date;
     updatedAt: Date;
 }
 
-type WorkspaceStatic = typeof Model & {
+export type WorkspaceStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): Workspace;
 };
 

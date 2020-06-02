@@ -5,6 +5,7 @@ import * as workspace from "../controller/workspace";
 const routes = Router();
 
 routes.get("/", workspace.index);
+routes.get("/:id", workspace.show);
 routes.post("/", workspace.store);
 routes.put("/:id", workspace.update);
 routes.delete("/:id", workspace.destroy);
