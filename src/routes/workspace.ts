@@ -1,13 +1,16 @@
 import { Router } from "express";
 
-import * as workspace from "../controller/workspace";
+import useController from "../controller/UseController";
+import WorkspaceResource from "../resource/WorkspaceResource";
+
+const workspaceController = useController(WorkspaceResource);
 
 const routes = Router();
 
-routes.get("/", workspace.index);
-routes.get("/:id", workspace.show);
-routes.post("/", workspace.store);
-routes.put("/:id", workspace.update);
-routes.delete("/:id", workspace.destroy);
+routes.get("/", workspaceController.index);
+routes.get("/:id", workspaceController.show);
+routes.post("/", workspaceController.store);
+routes.put("/:id", workspaceController.update);
+routes.delete("/:id", workspaceController.destroy);
 
 export default routes;

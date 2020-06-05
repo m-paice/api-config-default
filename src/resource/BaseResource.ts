@@ -1,4 +1,4 @@
-import { Model, FindOptions, CreateOptions, UpdateOptions } from "sequelize";
+import { FindOptions, CreateOptions, UpdateOptions } from "sequelize";
 import RepositoryAbstract from "../repository/RepositoryAbstract";
 
 class BaseResource<T> {
@@ -12,28 +12,46 @@ class BaseResource<T> {
         return this.repository;
     }
 
-    findMany(options?: FindOptions): Promise<Model<T>[]> {
-        return this.getRepository().findMany(options);
+    findMany(options?: FindOptions): Promise<T[]> {
+        return this.getRepository()
+            .findMany(options)
+            .then((response) => response)
+            .catch((error) => error);
     }
 
-    findById(id: string, options?: FindOptions): Promise<Model<T>> {
-        return this.getRepository().findById(id, options);
+    findById(id: string, options?: FindOptions): Promise<T> {
+        return this.getRepository()
+            .findById(id, options)
+            .then((response) => response)
+            .catch((error) => error);
     }
 
-    findOne(options: FindOptions): Promise<Model<T>> {
-        return this.getRepository().findOne(options);
+    findOne(options: FindOptions): Promise<T> {
+        return this.getRepository()
+            .findOne(options)
+            .then((response) => response)
+            .catch((error) => error);
     }
 
-    create(data: T, options?: CreateOptions): Promise<Model<T>> {
-        return this.getRepository().create(data, options);
+    create(data: T, options?: CreateOptions): Promise<T> {
+        return this.getRepository()
+            .create(data, options)
+            .then((response) => response)
+            .catch((error) => error);
     }
 
-    updateById(id: string, data: T, options?: UpdateOptions): Promise<[number, Model<T>[]]> {
-        return this.getRepository().updateById(id, data, options);
+    updateById(id: string, data: T, options?: UpdateOptions): Promise<T> {
+        return this.getRepository()
+            .updateById(id, data, options)
+            .then((response) => response)
+            .catch((error) => error);
     }
 
     destroyById(id: string): Promise<number> {
-        return this.getRepository().destroyById(id);
+        return this.getRepository()
+            .destroyById(id)
+            .then(() => 1)
+            .catch((error) => error);
     }
 }
 
